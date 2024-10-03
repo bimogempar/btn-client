@@ -15,7 +15,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className='flex flex-col h-[80vh]'>
+        <div className='flex flex-col h-[22vh] md:h-[80vh]'>
             <ul className='mb-auto space-y-2'>
                 <li className={`rounded-md p-2 ${segment == 'products' && 'bg-gray-100'}`}>
                     <Link href={"/dashboard/products"}>Products</Link>

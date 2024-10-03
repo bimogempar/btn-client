@@ -20,10 +20,10 @@ export default function DashboardLayout({
     if (loading) return <div>loading..</div>
     return (
         <div className="bg-gray-100 min-h-screen p-8 md:p-16 grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white p-4 rounded-md max-h-[84vh] overflow-auto md:col-span-1">
+            <div className="bg-white p-4 rounded-md h-[26vh] md:h-[84vh] overflow-auto md:col-span-1">
                 <Navbar />
             </div>
-            <div className="bg-white p-4 rounded-md max-h-[84vh] overflow-auto md:col-span-3">
+            <div className="bg-white p-4 rounded-md h-[84vh] overflow-auto md:col-span-3">
                 {children}
             </div>
         </div>
