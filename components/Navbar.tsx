@@ -28,7 +28,7 @@ export default function Navbar() {
                 </li>
             </ul>
             <div className='mt-auto p-2'>
-                <h2>{user}</h2>
+                <h2>{user?.email}</h2>
                 <h2 className='cursor-pointer' onClick={handleLogout}>Logout</h2>
             </div>
         </div>
