@@ -16,7 +16,6 @@ export default function AuthLayout({
         }
     });
 
-    if (loading) return <div>loading..</div>
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
             <div className='bg-white min-w-[42vh] min-h-[38vh] p-8 rounded-md'>
