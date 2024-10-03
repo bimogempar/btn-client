@@ -1,12 +1,14 @@
 "use client"
-import { useRouter } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext';
 import React from 'react'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 export default function LoginPage() {
-    const router = useRouter();
+    const { login } = useAuth();
+    const { register, handleSubmit } = useForm();
 
-    const handleLogin = () => {
-        router.push('/dashboard/products');
+    const handleLogin: SubmitHandler<FieldValues> = async (payload) => {
+        await login(payload.email, payload.password);
     }
 
     return (
@@ -14,13 +16,13 @@ export default function LoginPage() {
             <div className="text-center">
                 LOGIN INVENTORY STOCKS
             </div>
-            <div className="flex flex-col gap-4 w-full mt-8 h-[24vh]">
-                <input type="email" placeholder="email@example.com" className='rounded-md bg-slate-50 p-2' />
-                <input type="password" placeholder="password" className='rounded-md bg-slate-50 p-2' />
+            <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-4 w-full mt-8 h-[24vh]">
+                <input {...register('email')} type="email" placeholder="email@example.com" className='rounded-md bg-slate-50 p-2' />
+                <input {...register('password')} type="password" placeholder="password" className='rounded-md bg-slate-50 p-2' />
                 <div className='mt-auto'>
-                    <button className='p-2 w-full rounded-md bg-slate-400 text-white' onClick={handleLogin}>LOGIN</button>
+                    <button type='submit' className='p-2 w-full rounded-md bg-slate-400 text-white'>LOGIN</button>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

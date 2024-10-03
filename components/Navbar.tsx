@@ -2,19 +2,21 @@
 import React from 'react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Navbar() {
     const segment = useSelectedLayoutSegment();
-    const router = useRouter();
+    const { logout, user } = useAuth();
 
     const handleLogout = () => {
-        router.replace('/auth/login');
+        if (confirm('sure logout ?')) {
+            logout()
+        }
     }
 
     return (
         <div className='flex flex-col h-[80vh]'>
-            <ul className='mb-auto space-y-4'>
+            <ul className='mb-auto space-y-2'>
                 <li className={`rounded-md p-2 ${segment == 'products' && 'bg-gray-100'}`}>
                     <Link href={"/dashboard/products"}>Products</Link>
                 </li>
@@ -25,7 +27,10 @@ export default function Navbar() {
                     <Link href={"/dashboard/users"}>Users</Link>
                 </li>
             </ul>
-            <h2 className='mt-auto p-2 cursor-pointer' onClick={handleLogout}>Logout</h2>
+            <div className='mt-auto p-2'>
+                <h2>{user}</h2>
+                <h2 className='cursor-pointer' onClick={handleLogout}>Logout</h2>
+            </div>
         </div>
     )
 }
