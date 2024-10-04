@@ -8,7 +8,8 @@ import { useQuery } from 'react-query';
 export default function TransactionsPage() {
     const { data, isLoading } = useQuery('transactions', fetchTransactions);
     return (
-        <div className="flex flex-col max-h-[calc(100vh-100px)] overflow-y-auto">
+        <div>
+            <h1 className="text-xl font-semibold mb-4">Transactions</h1>
             <AntdTable
                 rowKey="id"
                 onclickRow={(record) => console.log(record)}

@@ -9,6 +9,7 @@ export default function ProductsPage() {
     const { data, isLoading } = useQuery('products', fetchProducts)
     return (
         <div>
+            <h1 className="text-xl font-semibold mb-4">Products</h1>
             <AntdTable
                 rowKey="id"
                 onclickRow={(record) => console.log(record)}

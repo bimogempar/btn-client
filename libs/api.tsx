@@ -19,12 +19,14 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        return response;
+    },
     (error) => {
         if (error.response && error.response.status === 401) {
             Cookies.remove('token');
             Cookies.remove('user');
-            window.open('/auth/login');
+            window.location.href = '/auth/login';
         }
         return Promise.reject(error);
     }

@@ -17,20 +17,22 @@ export default function Navbar() {
     return (
         <div className='flex flex-col h-[22vh] md:h-[80vh]'>
             <ul className='mb-auto space-y-2'>
-                <li className={`rounded-md p-2 ${segment == 'products' && 'bg-[#FF8225] text-white'}`}>
+                <li className={`rounded-md p-2 ${segment == 'products' && 'bg-[#FF8225] text-white'} hover:bg-[#FF8225] hover:text-white`}>
                     <Link href={"/dashboard/products"}>Products</Link>
                 </li>
-                <li className={`rounded-md p-2 ${segment == 'transactions' && 'bg-[#FF8225] text-white'}`}>
+                <li className={`rounded-md p-2 ${segment == 'transactions' && 'bg-[#FF8225] text-white'} hover:bg-[#FF8225] hover:text-white`}>
                     <Link href={"/dashboard/transactions"}>Transactions</Link>
                 </li>
-                <li className={`rounded-md p-2 ${segment == 'users' && 'bg-[#FF8225] text-white'}`}>
+                <li className={`rounded-md p-2 ${segment == 'users' && 'bg-[#FF8225] text-white'} hover:bg-[#FF8225] hover:text-white`}>
                     <Link href={"/dashboard/users"}>Users</Link>
                 </li>
             </ul>
-            <div className='mt-auto p-2'>
-                <h2>{user?.email}</h2>
-                <h2 className='cursor-pointer' onClick={handleLogout}>Logout</h2>
-            </div>
+            <ul className='mt-auto space-y-1'>
+                <li className={`${segment == 'profile' && 'bg-[#FF8225] text-white'} p-2 hover:bg-[#FF8225] hover:text-white rounded-md cursor-pointer`}>
+                    <Link href={"/dashboard/profile"}>{user?.email}</Link>
+                </li>
+                <li className={`cursor-pointer p-2 hover:bg-[#FF8225] hover:text-white rounded-md cursor-pointer`} onClick={handleLogout}>Logout</li>
+            </ul>
         </div>
     )
 }

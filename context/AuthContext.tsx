@@ -6,8 +6,10 @@ import api from '@/libs/api';
 import toast from 'react-hot-toast';
 
 interface User {
+    id: number;
     email: string;
     name: string;
+    role: string;
 }
 
 interface AuthContextProps {
@@ -15,6 +17,7 @@ interface AuthContextProps {
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
     loading: boolean;
+    update: (user: User) => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -57,8 +60,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         router.push('/auth/login');
     };
 
+    const update = (user: User) => {
+        Cookies.set('user', JSON.stringify(user));
+        setUser(user);
+    }
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, update, loading }}>
             {children}
         </AuthContext.Provider>
     );
