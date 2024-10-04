@@ -15,3 +15,19 @@ export interface DataType {
     updated_at: string | null;
   };
 }
+
+export interface ProductTrx {
+  id: number;
+  category_id: number;
+  name: string;
+  description: string;
+  image: string;
+  stock: number;
+  created_at: string;
+  updated_at: string;
+  pivot: {
+    transaction_id: number;
+    product_id: number;
+    quantity: number;
+  };
+}
