@@ -13,14 +13,14 @@ export default function LoginPage() {
 
     return (
         <div>
-            <div className="text-center">
-                LOGIN INVENTORY STOCKS
+            <div className="text-center text-2xl font-bold">
+                Inventory Stock
             </div>
             <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-4 w-full mt-8 h-[24vh]">
                 <input {...register('email')} type="email" placeholder="email@example.com" className='rounded-md bg-slate-50 p-2' />
                 <input {...register('password')} type="password" placeholder="password" className='rounded-md bg-slate-50 p-2' />
                 <div className='mt-auto'>
-                    <button type='submit' className='p-2 w-full rounded-md bg-slate-400 text-white'>LOGIN</button>
+                    <button type='submit' className='p-2 w-full rounded-md bg-[#FF8225] hover:bg-[#e57521] text-white'>Login</button>
                 </div>
             </form>
         </div>

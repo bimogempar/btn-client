@@ -26,7 +26,7 @@ export default function AntdTable<RecordType extends object>({
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#168B3E',
+          colorPrimary: '#173B45',
         },
       }}
     >
