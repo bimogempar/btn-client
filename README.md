@@ -7,7 +7,12 @@ This is the front-end application for the BTN project. It's built with Next.js.
 - Next js
 - js-cookie
 - React Context
-- Axios
+- axios
+- Antd
+- moment
+- react-hook-form
+- react-query
+- react-hot-toast
 
 ## Prerequisites
 
@@ -37,7 +42,12 @@ This is the front-end application for the BTN project. It's built with Next.js.
 
 ## Creadentials
 
+Admin:
+
+- email: admin@example.com
+- pass: password
+
 User:
 
-- email: bimo@example.com
+- email: user@example.com
 - pass: password
