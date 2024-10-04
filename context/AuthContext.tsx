@@ -5,8 +5,13 @@ import Cookies from 'js-cookie';
 import api from '@/libs/api';
 import toast from 'react-hot-toast';
 
+interface User {
+    email: string;
+    name: string;
+}
+
 interface AuthContextProps {
-    user: string | null;
+    user: User | null;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
     loading: boolean;
@@ -15,7 +20,7 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<string | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
@@ -23,7 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const token = Cookies.get('token');
         const user = Cookies.get('user');
         if (token) {
-            setUser(JSON.parse(user) || null);
+            setUser(user ? JSON.parse(user) : null);
         }
         setLoading(false)
     }, []);
@@ -40,9 +45,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             } else {
                 throw new Error();
             }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
-            toast.error("Wrong username or password");
-            return err;
+            toast.error("Wrong username or password ");
         }
     };
 

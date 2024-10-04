@@ -1,4 +1,4 @@
-# BTN Client
+# Inventory Stock Client
 
 This is the front-end application for the BTN project. It's built with Next.js.
 

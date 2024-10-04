@@ -18,6 +18,18 @@ axiosInstance.interceptors.request.use(
     },
 );
 
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            Cookies.remove('token');
+            Cookies.remove('user');
+            window.open('/auth/login');
+        }
+        return Promise.reject(error);
+    }
+);
+
 const api = {
     get: (url: string, params = {}) => axiosInstance.get(url, { params }),
     post: (url: string, data = {}) => axiosInstance.post(url, data),
