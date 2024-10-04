@@ -33,47 +33,15 @@ export const column: ColumnsType<Transaction> = [
         title: 'Products',
         key: 'products',
         render: (_, record: Transaction) => (
-            <Table
-                columns={productColumns}
-                dataSource={record.products}
-                pagination={false}
-                rowKey="id"
-            />
+            <div className="grid grid-cols-3 gap-4">
+                {record.products.map((product) => (
+                    <div key={product.id} className="p-2 border rounded-md">
+                        <div><strong>{product.name}</strong></div>
+                        <div>Quantity: {product.pivot?.quantity}</div>
+                        <div>Stock: {product.stock}</div>
+                    </div>
+                ))}
+            </div>
         ),
-    },
-];
-
-const productColumns: ColumnsType<ProductTrx> = [
-    {
-        title: 'Product ID',
-        dataIndex: 'id',
-        key: 'id',
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
-    },
-    {
-        title: 'Image',
-        dataIndex: 'image',
-        key: 'image',
-        render: (text: string) => <img src={text} alt={text} width={50} height={50} />,
-        hidden: true
-    },
-    {
-        title: 'Stock',
-        dataIndex: 'stock',
-        key: 'stock',
-    },
-    {
-        title: 'Quantity in Transaction',
-        dataIndex: ['pivot', 'quantity'],
-        key: 'quantity',
     },
 ];
