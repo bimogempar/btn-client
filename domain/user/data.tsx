@@ -32,3 +32,20 @@ export const postUpdateProfile = async (payload: any) => {
         }
     }
 }
+
+export const postCreateUser = async (payload: any) => {
+    try {
+        const res = await api.post("/users/store", payload);
+        const { user } = res.data;
+        return user;
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            toast.error(error.message);
+            return error.message;
+        } else {
+            toast.error("An unknown error occurred.");
+            return "An unknown error occurred.";
+        }
+    }
+}
+

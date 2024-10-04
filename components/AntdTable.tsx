@@ -42,7 +42,7 @@ export default function AntdTable<RecordType extends object>({
         }}
         scroll={{
           x: 1300,
-          y: 620,
+          y: 480,
         }}
         loading={loading}
         size={size}

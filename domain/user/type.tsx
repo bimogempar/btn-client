@@ -8,3 +8,16 @@ export interface User {
     updated_at: string;
     password: string;
 }
+
+export interface UserCreateForm {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
+
+export interface UserModalProps {
+    visible: boolean;
+    onClose: () => void;
+    onSuccess: () => void;
+}

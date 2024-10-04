@@ -7,3 +7,14 @@ export interface Transaction {
     updated_at: string;
     products: ProductTrx[];
 }
+
+export interface TransactionForm {
+    type: 'stock_in' | 'stock_out';
+    products: { product_id: number; quantity: number }[];
+}
+
+export interface TransactionModalProps {
+    visible: boolean;
+    onClose: () => void;
+    onSuccess: () => void;
+}
