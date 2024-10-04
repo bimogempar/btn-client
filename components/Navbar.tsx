@@ -20,6 +20,9 @@ export default function Navbar() {
                 <li className={`rounded-md p-2 ${segment == 'products' && 'bg-[#FF8225] text-white'} hover:bg-[#FF8225] hover:text-white`}>
                     <Link href={"/dashboard/products"}>Products</Link>
                 </li>
+                <li className={`rounded-md p-2 ${segment == 'categories-product' && 'bg-[#FF8225] text-white'} hover:bg-[#FF8225] hover:text-white`}>
+                    <Link href={"/dashboard/categories"}>Categories</Link>
+                </li>
                 <li className={`rounded-md p-2 ${segment == 'transactions' && 'bg-[#FF8225] text-white'} hover:bg-[#FF8225] hover:text-white`}>
                     <Link href={"/dashboard/transactions"}>Transactions</Link>
                 </li>
