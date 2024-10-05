@@ -21,7 +21,7 @@ export default function UsersPage() {
             </button>
             <AntdTable
                 rowKey="id"
-                onclickRow={(record) => console.log(record)}
+                onclickRow={() => { }}
                 onChangeRowSelect={(selectedRowKeys, selectedRows) => console.log(selectedRowKeys, selectedRows)}
                 loading={isLoading}
                 size="middle"

@@ -1,9 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { ColumnsType } from "antd/es/table"
-import { DataType } from "./type"
+import { MoreOutlined } from '@ant-design/icons';
+import { Product } from "./type"
 import moment from "moment";
+import { Dropdown, MenuProps, } from "antd";
+import { ProductsPageContextType } from "@/app/dashboard/products/page";
+import { postDeleteProduct } from "./data";
 
-export const columns: ColumnsType<DataType> = [
+export const columns = (ctx: ProductsPageContextType): ColumnsType<Product> => [
     {
         title: 'ID',
         dataIndex: 'id',
@@ -54,5 +58,60 @@ export const columns: ColumnsType<DataType> = [
         dataIndex: 'updated_at',
         key: 'updated_at',
         render: (date: string) => moment(date).format('YYYY-MM-DD HH:mm:ss'),
+    },
+    {
+        title: 'Action',
+        key: 'action',
+        fixed: 'right',
+        width: '10vh',
+        render: (row) => {
+            return (
+                <div className="flex justify-center">
+                    <Dropdown menu={{
+                        items: menuAction,
+                        onClick: (props) => onClickAction({ ...props, ctx, row }),
+                    }} trigger={['click']}>
+                        <MoreOutlined className="hover:cursor-pointer" />
+                    </Dropdown>
+                </div>
+            )
+        },
+    },
+];
+
+const onClickAction = (
+    {
+        key,
+        ctx,
+        row
+    }: {
+        key: string;
+        ctx: ProductsPageContextType;
+        row: Product;
+    }) => {
+    switch (key) {
+        case 'edit':
+            ctx.setProduct(row);
+            ctx.setModalEditOpen();
+            break;
+        case 'delete':
+            if (confirm('sure delete ?')) {
+                postDeleteProduct(row.id);
+                ctx.refetch();
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+const menuAction: MenuProps['items'] = [
+    {
+        label: 'Edit',
+        key: 'edit',
+    },
+    {
+        label: 'Delete',
+        key: 'delete',
     },
 ];

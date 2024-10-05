@@ -24,6 +24,13 @@ export interface Product {
   stock: number;
   created_at: string;
   updated_at: string;
+  category_product: {
+    id: number;
+    name: string;
+    description: string;
+    created_at: string | null;
+    updated_at: string | null;
+  };
 }
 
 
@@ -44,6 +51,7 @@ export interface ProductTrx {
 }
 
 export interface ProductForm {
+  id: number;
   name: string;
   description: string;
   stock: number;
@@ -54,4 +62,11 @@ export interface ProductModalProps {
   visible: boolean;
   onClose: () => void;
   onSuccess: () => void;
+}
+
+export interface ColumnProps {
+  refetch: () => void;
+  isModalVisible: boolean;
+  showModal: () => void;
+  hideModal: () => void;
 }

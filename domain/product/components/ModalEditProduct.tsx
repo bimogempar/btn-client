@@ -1,39 +1,51 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import { ProductForm } from "../type";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Modal } from "antd";
 import { useQuery } from "react-query";
 import { fetchCategories } from "@/domain/category_product/data";
-import { postCreateProduct } from "../data";
+import { postUpdateProduct } from "../data";
 import { useProductsPage } from "@/app/dashboard/products/page";
 import { Category } from "@/domain/category_product/type";
 
-export default function ModalCreateProduct() {
-    const { register, handleSubmit, reset } = useForm<ProductForm>();
+export default function ModalEditProduct() {
+    const { register, handleSubmit, reset, setValue } = useForm<ProductForm>();
     const { data: categories, isLoading } = useQuery('categories', fetchCategories);
-    const { isOpenModalCreate, setModalCreateOpen, setModalCreateClose } = useProductsPage();
+    const { refetch, product, isOpenModalEdit, setModalEditOpen, setModalEditClose } = useProductsPage();
+
+    useEffect(() => {
+        if (product != null) {
+            setValue('name', product.name);
+            setValue('description', product.description);
+            setValue('stock', product.stock);
+            setValue('category_id', product.category_product.id);
+        }
+    })
 
     const handleOk = async (data: ProductForm) => {
         try {
-            await postCreateProduct(data)
-            toast.success('Product created successfully!');
-            reset();
-            setModalCreateOpen();
-            setModalCreateClose();
+            if (confirm('sure update ?')) {
+                await postUpdateProduct({ ...data, id: product.id, });
+                toast.success('Product updated successfully!');
+                reset();
+                setModalEditOpen();
+                setModalEditClose();
+                refetch();
+            }
         } catch {
-            toast.error('Failed to create product.');
+            toast.error('Failed to update product.');
         }
     };
 
     return (
         <Modal
-            title="Create Product"
-            open={isOpenModalCreate}
+            title="Edit Product"
+            open={isOpenModalEdit}
             onOk={handleSubmit(handleOk)}
-            onCancel={setModalCreateClose}
-            okText="Create"
+            onCancel={setModalEditClose}
+            okText="Update"
             cancelText="Cancel"
         >
             <div className="space-y-4 flex flex-col">
