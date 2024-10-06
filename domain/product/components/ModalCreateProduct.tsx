@@ -13,14 +13,14 @@ import { Category } from "@/domain/category_product/type";
 export default function ModalCreateProduct() {
     const { register, handleSubmit, reset } = useForm<ProductForm>();
     const { data: categories, isLoading } = useQuery('categories', fetchCategories);
-    const { isOpenModalCreate, setModalCreateOpen, setModalCreateClose } = useProductsPage();
+    const { refetch, isOpenModalCreate, setModalCreateClose } = useProductsPage();
 
     const handleOk = async (data: ProductForm) => {
         try {
             await postCreateProduct(data)
             toast.success('Product created successfully!');
             reset();
-            setModalCreateOpen();
+            refetch();
             setModalCreateClose();
         } catch {
             toast.error('Failed to create product.');

@@ -64,6 +64,7 @@ export const columns = (ctx: ProductsPageContextType): ColumnsType<Product> => [
         key: 'action',
         fixed: 'right',
         width: '10vh',
+        align: 'center',
         render: (row) => {
             return (
                 <div className="flex justify-center">

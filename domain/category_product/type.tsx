@@ -14,8 +14,8 @@ export interface CategoryCreateForm {
     description: string;
 }
 
-export interface CategoryModalProps {
-    visible: boolean;
-    onClose: () => void;
-    onSuccess: () => void;
+export interface CategoryUpdateForm {
+    id: number;
+    name: string;
+    description: string;
 }

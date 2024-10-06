@@ -3,24 +3,22 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Modal } from "antd";
-import { CategoryCreateForm, CategoryModalProps } from "../type";
+import { CategoryCreateForm } from "../type";
 import { postCreateCategory } from "../data";
+import { useCategoryPage } from "@/app/dashboard/categories/page";
 
-export default function ModalCreateCategory({
-    visible,
-    onClose,
-    onSuccess
-}: CategoryModalProps) {
+export default function ModalCreateCategory() {
     const { register, handleSubmit, reset } = useForm<CategoryCreateForm>();
+    const { refetch, isOpenModalCreate, setModalCreateClose } = useCategoryPage();
 
     const handleOk = async (data: CategoryCreateForm) => {
         try {
             await postCreateCategory(data);
             toast.success("Category created successfully!");
             reset();
-            onSuccess();
-            onClose();
-        } catch (error) {
+            refetch();
+            setModalCreateClose();
+        } catch {
             toast.error("Failed to create category.");
         }
     };
@@ -28,9 +26,9 @@ export default function ModalCreateCategory({
     return (
         <Modal
             title="Create Category"
-            open={visible}
+            open={isOpenModalCreate}
             onOk={handleSubmit(handleOk)}
-            onCancel={onClose}
+            onCancel={setModalCreateClose}
             okText="Create"
             cancelText="Cancel"
         >
