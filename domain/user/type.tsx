@@ -15,9 +15,10 @@ export interface UserCreateForm {
     password: string;
     role: string;
 }
-
-export interface UserModalProps {
-    visible: boolean;
-    onClose: () => void;
-    onSuccess: () => void;
+export interface UserUpdateForm {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    role: string;
 }

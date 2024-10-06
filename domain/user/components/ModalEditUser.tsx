@@ -1,35 +1,44 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal } from "antd";
 import toast from "react-hot-toast";
-import { UserCreateForm } from "../type"; // Adjust the path as needed
-import { postCreateUser } from "../data"; // Ensure you have this function to post data
+import { UserUpdateForm } from "../type"; // Adjust the path as needed
+import { postUpdateProfile } from "../data"; // Ensure you have this function to post data
 import { useUsersPage } from "@/app/dashboard/users/page";
 
-export default function ModalCreateUser() {
-    const { register, handleSubmit, reset } = useForm<UserCreateForm>();
-    const { refetch, isOpenModalCreate, setModalCreateClose } = useUsersPage();
+export default function ModalEditUser() {
+    const { register, handleSubmit, reset, setValue } = useForm<UserUpdateForm>();
+    const { refetch, user, isOpenModalEdit, setModalEditClose } = useUsersPage();
 
-    const handleOk = async (data: UserCreateForm) => {
+    useEffect(() => {
+        if (user != null) {
+            setValue("id", user.id);
+            setValue("name", user.name);
+            setValue("email", user.email);
+            setValue("role", user.role);
+        }
+    })
+
+    const handleOk = async (data: UserUpdateForm) => {
         try {
-            await postCreateUser(data);
-            toast.success("User created successfully!");
+            await postUpdateProfile(data);
+            toast.success("User updated successfully!");
             reset();
             refetch();
-            setModalCreateClose();
+            setModalEditClose();
         } catch {
-            toast.error("Failed to create user.");
+            toast.error("Failed to update user.");
         }
     };
 
     return (
         <Modal
-            title="Create User"
-            open={isOpenModalCreate}
+            title="Update User"
+            open={isOpenModalEdit}
             onOk={handleSubmit(handleOk)}
-            onCancel={setModalCreateClose}
-            okText="Create"
+            onCancel={setModalEditClose}
+            okText="Update"
             cancelText="Cancel"
         >
             <div className="space-y-4 flex flex-col">
@@ -43,12 +52,6 @@ export default function ModalCreateUser() {
                     type="email"
                     {...register("email", { required: true })}
                     placeholder="Email"
-                    className="p-2 border rounded"
-                />
-                <input
-                    type="password"
-                    {...register("password", { required: true })}
-                    placeholder="Password"
                     className="p-2 border rounded"
                 />
                 <select
